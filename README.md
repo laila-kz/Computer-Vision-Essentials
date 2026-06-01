@@ -84,7 +84,6 @@ The objectives of this course-based portfolio are to:
 ## Repository Structure
 
 ```text
-materials/                 Original course PDFs and TP statements
 docs/                      Theory notes, dependency map, and portfolio notes
 reports/                   Professional TP reports
 src/python/cv_portfolio/   Reusable OpenCV implementations
