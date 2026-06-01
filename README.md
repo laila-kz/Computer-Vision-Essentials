@@ -1,4 +1,4 @@
-# Artificial Vision / Computer Vision Portfolio
+# Artificial Vision / Computer Vision 
 
 
 
