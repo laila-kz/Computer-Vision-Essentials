@@ -1,12 +1,68 @@
+# Byte-compiled / optimized / DLL files
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
 .venv/
+venv/
+ENV/
+env/
+
+# Testing and Type Checking
 .pytest_cache/
 .mypy_cache/
-.DS_Store
-Thumbs.db
-*.log
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# MATLAB temporary and autosave files
+*.asv
+*.m~
+*.slxc
+*.mex*
+*.mat
+octave-workspace
+octave-core
+
+# Output artifacts and figures
 results/
 outputs/
-build/
-dist/
+*.log
+figures_out/
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+Desktop.ini

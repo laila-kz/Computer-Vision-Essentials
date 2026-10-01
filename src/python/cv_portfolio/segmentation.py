@@ -1,41 +1,49 @@
+"""Image segmentation, mathematical morphology, and connected component analysis."""
+
 from __future__ import annotations
 
-import cv2
-import numpy as np
+from .segmentation.connected_components import (
+    ComponentInfo,
+    connected_components_summary,
+    filter_components_by_area,
+)
+from .segmentation.morphology import (
+    blackhat_transform,
+    dilate_image,
+    erode_image,
+    get_structuring_element,
+    morphological_gradient,
+    morphology_cleanup,
+    morphology_close,
+    morphology_open,
+    tophat_transform,
+)
+from .segmentation.pipeline import segmentation_pipeline
+from .segmentation.thresholding import (
+    adaptive_threshold_gaussian,
+    adaptive_threshold_mean,
+    manual_threshold,
+    otsu_threshold,
+)
+from .segmentation.watershed import distance_transform_watershed
 
-from .utils import count_nonzero_ratio, ensure_uint8, label_components, to_gray
-
-
-def otsu_threshold(image: np.ndarray) -> tuple[float, np.ndarray]:
-    gray = to_gray(image)
-    threshold_value, binary = cv2.threshold(ensure_uint8(gray), 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-    return threshold_value, binary
-
-
-def morphology_cleanup(binary_mask: np.ndarray, open_size: int = 3, close_size: int = 5) -> np.ndarray:
-    open_kernel = np.ones((open_size, open_size), dtype=np.uint8)
-    close_kernel = np.ones((close_size, close_size), dtype=np.uint8)
-    opened = cv2.morphologyEx(binary_mask, cv2.MORPH_OPEN, open_kernel)
-    closed = cv2.morphologyEx(opened, cv2.MORPH_CLOSE, close_kernel)
-    return closed
-
-
-def connected_components_summary(binary_mask: np.ndarray) -> dict[str, object]:
-    num_labels, labels, stats, centroids = label_components(binary_mask)
-    areas = stats[:, cv2.CC_STAT_AREA].tolist()
-    return {
-        "num_labels": num_labels,
-        "labels": labels,
-        "stats": stats,
-        "centroids": centroids,
-        "areas": areas,
-        "foreground_ratio": count_nonzero_ratio(binary_mask),
-    }
-
-
-def segmentation_pipeline(image: np.ndarray) -> dict[str, object]:
-    threshold_value, binary = otsu_threshold(image)
-    cleaned = morphology_cleanup(binary)
-    summary = connected_components_summary(cleaned)
-    summary.update({"threshold": threshold_value, "binary": binary, "cleaned": cleaned})
-    return summary
+__all__ = [
+    "manual_threshold",
+    "otsu_threshold",
+    "adaptive_threshold_mean",
+    "adaptive_threshold_gaussian",
+    "get_structuring_element",
+    "erode_image",
+    "dilate_image",
+    "morphology_open",
+    "morphology_close",
+    "morphological_gradient",
+    "tophat_transform",
+    "blackhat_transform",
+    "morphology_cleanup",
+    "ComponentInfo",
+    "connected_components_summary",
+    "filter_components_by_area",
+    "distance_transform_watershed",
+    "segmentation_pipeline",
+]
